@@ -105,7 +105,7 @@
   </update>
   
   
-    <select id="checkSendSmsCount" resultType="java.lang.Integer"  parameterType="com.huarong.p2p.api.mybatis.model.SendSms">
+    <select id="checkSendSmsCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
   		SELECT COUNT(id) FROM t_sendsms t WHERE t.sendtime&gt;=#{sendTime,jdbcType=TIMESTAMP} AND t.sendtime&lt;=#{sendTime,jdbcType=TIMESTAMP} AND t.splitPhone LIKE '%#{splitPhone}%'
   </select>
   

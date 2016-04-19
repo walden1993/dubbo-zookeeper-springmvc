@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class User {
 	
-	private boolean login = false;
+	private boolean isLogin;//是否登陆
 	
     public boolean isLogin() {
-		return login;
+		return isLogin;
 	}
 
-	public void setLogin(boolean login) {
-		this.login = login;
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
 	}
 
 	private Long id;

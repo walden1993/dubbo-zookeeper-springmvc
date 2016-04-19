@@ -7,19 +7,28 @@ package com.huarong.p2p.api.bean;
  * @since 1.0.0
  */
 public class Response {
-
+	
+	private final static String CODE_ERROR="00";
+	private final static String CODE_SUCCESS="01";
 
     private Meta meta;
     private Object data;
     
     public Response failure(String message){
-    	this.meta = new Meta("00", message);
+    	this.meta = new Meta(CODE_ERROR, message);
     	this.data = null;
     	return this;
     }
     
+    
     public Response success(Object data){
-    	this.meta = new Meta("01","success");
+    	this.meta = new Meta(CODE_SUCCESS,"success");
+    	this.data = data;
+    	return this;
+    }
+    
+    public Response success(Object data,String message){
+    	this.meta = new Meta(CODE_SUCCESS,"success");
     	this.data = data;
     	return this;
     }

@@ -18,7 +18,7 @@ import com.huarong.p2p.api.bean.UserBean;
 import com.huarong.p2p.api.mybatis.model.User;
 import com.huarong.p2p.api.param.LoginParam;
 import com.huarong.p2p.api.param.RegisterParam;
-import com.huarong.p2p.api.service.SmsService;
+import com.huarong.p2p.api.service.SmsConfigService;
 import com.huarong.p2p.api.service.UserService;
 import com.huarong.p2p.api.validation.MobileNo;
 import com.huarong.p2p.api.web.WebContext;
@@ -38,7 +38,7 @@ public class UserController {
     private UserService userService;
 	
 	@Reference
-    private SmsService smsService;
+    private SmsConfigService smsConfigService;
     
     @Autowired
     private TokenManager tokenManager;

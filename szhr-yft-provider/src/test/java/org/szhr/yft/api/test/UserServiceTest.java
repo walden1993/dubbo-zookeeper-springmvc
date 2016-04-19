@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import com.huarong.p2p.api.mybatis.mapper.UserMapper;
 import com.huarong.p2p.api.param.LoginParam;
 import com.huarong.p2p.api.service.UserService;
 
@@ -19,17 +19,14 @@ public class UserServiceTest {
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	UserMapper userMapper;
-	
 	@Test
 	public void testlogin() throws Exception{
 		//登陆驱动测试
-		/*LoginParam loginParam = new LoginParam();
+		LoginParam loginParam = new LoginParam();
 		loginParam.setUsername("walden");
 		loginParam.setPassword("123456");
-		userService.login(loginParam, "127.0.0.1");*/
-		userMapper.queryUserByUserName("walden");
+		boolean result = userService.login(loginParam, "127.0.0.1").isLogin();
+		Assert.isTrue(result);
 	}
 	
 }

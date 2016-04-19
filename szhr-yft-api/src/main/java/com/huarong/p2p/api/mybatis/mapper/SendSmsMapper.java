@@ -1,5 +1,7 @@
 package com.huarong.p2p.api.mybatis.mapper;
 
+import java.util.Map;
+
 import com.huarong.p2p.api.mybatis.model.SendSms;
 
 public interface SendSmsMapper {
@@ -17,5 +19,5 @@ public interface SendSmsMapper {
     
     int insertSendSms(SendSms sendSms);
     
-    int checkSendSmsCount(SendSms sendSms);
+    int checkSendSmsCount(Map<String, String> sqlParam);
 }

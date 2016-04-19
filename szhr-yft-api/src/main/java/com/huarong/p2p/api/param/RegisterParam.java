@@ -28,9 +28,18 @@ public class RegisterParam extends MetaParam{
 	@NotEmpty(message = "请填写手机号")
 	public String mobile; //手机号
 	
-	@NotEmpty(message = "请填写手机验证码")
-	public String verificationCode;//手机验证码
+	public String reffere;//推荐人
 	
+	
+	
+	public String getReffere() {
+		return reffere;
+	}
+
+	public void setReffere(String reffere) {
+		this.reffere = reffere;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -54,15 +63,6 @@ public class RegisterParam extends MetaParam{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-
-	public String getVerificationCode() {
-		return verificationCode;
-	}
-
-	public void setVerificationCode(String verificationCode) {
-		this.verificationCode = verificationCode;
-	}
-	
 	
 }
 

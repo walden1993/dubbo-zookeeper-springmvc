@@ -26,4 +26,5 @@
     from t_sms
     where id = #{condition,jdbcType=VARCHAR}
   </select>
+  
 </mapper>
