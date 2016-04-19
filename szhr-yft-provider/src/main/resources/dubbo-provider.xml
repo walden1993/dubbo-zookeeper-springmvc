@@ -50,4 +50,7 @@
 	<!-- <bean id="userService" class="com.huarong.p2p.api.service.impl.UserServiceImpl" />
 	<dubbo:service interface="com.huarong.p2p.api.service.UserService"	ref="userService" protocol="dubbo"  validation="true"  /> -->
 	
+	<!-- <bean id="feedbackService" class="com.huarong.p2p.api.service.impl.FeedbackServiceImpl" />
+	<dubbo:service interface="com.huarong.p2p.api.service.FeedbackService"	ref="feedbackService" protocol="dubbo"  validation="true"  /> -->
+	
 </beans>

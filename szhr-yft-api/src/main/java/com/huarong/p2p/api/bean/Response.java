@@ -9,36 +9,31 @@ package com.huarong.p2p.api.bean;
 public class Response {
 
 
-	private static final String OK = "ok";
-    private static final String ERROR = "error";
-
     private Meta meta;
     private Object data;
-
-    public Response success() {
-        this.meta = new Meta(true, OK);
-        return this;
+    
+    public Response failure(String message){
+    	this.meta = new Meta("00", message);
+    	this.data = null;
+    	return this;
+    }
+    
+    public Response success(Object data){
+    	this.meta = new Meta("01","success");
+    	this.data = data;
+    	return this;
+    }
+    
+    public Response success(){
+    	this.meta = new Meta("01","success");
+    	return this;
     }
 
-    public Response success(Object data) {
-        this.meta = new Meta(true, OK);
-        this.data = data;
-        return this;
-    }
+    public void setMeta(Meta meta) {
+		this.meta = meta;
+	}
 
-    public Response failure() {
-        this.meta = new Meta(false, ERROR);
-        this.data = null;
-        return this;
-    }
-
-    public Response failure(String message) {
-        this.meta = new Meta(false, message);
-        this.data = null;
-        return this;
-    }
-
-    public Meta getMeta() {
+	public Meta getMeta() {
         return meta;
     }
 
@@ -52,24 +47,34 @@ public class Response {
     
     public class Meta {
 
-        private boolean success;
+        private String code;
         private String message;
 
-        public Meta(boolean success) {
-            this.success = success;
+        public Meta(String code) {
+            this.code = code;
         }
 
-        public Meta(boolean success, String message) {
-            this.success = success;
+        public Meta(String code, String message) {
+            this.code = code;
             this.message = message;
         }
 
-        public boolean isSuccess() {
-            return success;
-        }
+		public String getCode() {
+			return code;
+		}
 
-        public String getMessage() {
-            return message;
-        }
+		public void setCode(String code) {
+			this.code = code;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
+       
     }
 }

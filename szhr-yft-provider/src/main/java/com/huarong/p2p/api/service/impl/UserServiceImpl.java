@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.huarong.p2p.api.jdbc.dao.DataAccessor;
+import com.huarong.p2p.api.mybatis.mapper.UserMapper;
 import com.huarong.p2p.api.mybatis.model.User;
 import com.huarong.p2p.api.param.LoginParam;
 import com.huarong.p2p.api.param.RegisterParam;
@@ -27,12 +27,12 @@ import com.huarong.p2p.api.util.StringUtil;
  * @since 1.0.0
  */
 @Service(protocol="dubbo")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl   implements UserService {
 	private static Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
-	private DataAccessor dataAccessor;
-
+	UserMapper userMapper;
+	
 	/**
 	 * 用户登录
 	 * 
@@ -59,10 +59,8 @@ public class UserServiceImpl implements UserService {
 			lastip = "127.0.0.1"; // default IP
 		}
 
-		// t_user和t_person两个表查询用户名/手机号/邮箱
-		User user = dataAccessor.selectOne(
-				"com.huarong.p2p.api.mybatis.inter.UserMapper.queryUserByUserName",
-				username);
+		// t_user和t_person两个表查询用户机号/邮箱
+		User user = userMapper.queryUserByUserName(username);
 		if (null == user) {// 用户不存在
 			return null;
 		} else {// 开始验证密码
@@ -73,9 +71,7 @@ public class UserServiceImpl implements UserService {
 				// 取消用户限制登录将isLoginLimit设置为1和loginErrorCount设置为0
 				user.setIsloginlimit(1);
 				user.setLoginerrorcount(0);
-				dataAccessor
-						.update("com.huarong.p2p.api.mybatis.inter.UserMapper.resetUserState",
-								user);
+				userMapper.resetUserState(user);
 				log.debug("---------重置登录错误次数-----------");
 			}
 
@@ -104,9 +100,7 @@ public class UserServiceImpl implements UserService {
 					user.setLoginerrorcount(1);
 					user.setIsloginlimit(1);
 				}
-				dataAccessor
-						.update("com.huarong.p2p.api.mybatis.inter.UserMapper.resetUserState",
-								user);
+				userMapper.resetUserState(user);
 				return user;
 			} else {
 				// 使用存储过程登录
@@ -115,16 +109,14 @@ public class UserServiceImpl implements UserService {
 				sqlParam.put("lastIP", lastip);
 				sqlParam.put("out_ret", "-1L");
 				sqlParam.put("out_desc", "");
-				dataAccessor.selectOne("procedureMapper.userLogin", sqlParam);
+				//userMapper.userLogin(sqlParam);
 				userid = MapUtils.getLong(sqlParam, "out_ret", -1L);
 				if (userid <= 0) {
 					if (userid == -4) {
 						user.setLoginerrorcount(user.getLoginerrorcount() + 1);
 						user.setLastdate(lasttime);
 						// 更新用户错误登录次数和登陆时间
-						dataAccessor
-								.update("com.huarong.p2p.api.mybatis.inter.UserMapper.updateUserState",
-										user);
+						userMapper.updateUserState(user);
 						return null;
 					} else if (userid == -5) {
 						user.setEnable(2);
@@ -136,9 +128,7 @@ public class UserServiceImpl implements UserService {
 					user.setLogin(true);
 					user.setIsloginlimit(1);
 					user.setLoginerrorcount(0);
-					dataAccessor
-							.update("com.huarong.p2p.api.mybatis.inter.UserMapper.resetUserState",
-									user);
+					userMapper.resetUserState(user);
 					log.debug("---------重置登录错误次数-----------");
 				}
 			}

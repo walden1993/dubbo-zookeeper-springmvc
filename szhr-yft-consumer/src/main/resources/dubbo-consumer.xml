@@ -12,4 +12,7 @@
 	
     <!-- <dubbo:monitor protocol="registry"/> -->
 	<!-- <dubbo:reference  id="userService" interface="com.huarong.p2p.api.service.UserService" init="true"  /> -->
+	
+	<!--  <dubbo:monitor protocol="registry"/>
+	 <dubbo:reference  id="feedbackService" interface="com.huarong.p2p.api.service.FeedbackService" init="true"  />  -->
 </beans>

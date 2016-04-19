@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huarong.p2p.api.mybatis.mapper.UserMapper" >
+   <cache-ref namespace="redisCacheMapper"/>
+	
+	
+	<select id="queryUserByUserName" parameterType="java.lang.String" resultType="com.huarong.p2p.api.mybatis.model.User">
+		SELECT * FROM t_user tu,t_person tp WHERE tu.`id` = tp.`userId` AND (tu.`username`=#{username} OR tu.`mobilePhone` = #{username} OR tp.`cellPhone` = #{username})
+	</select>
+	
+	<update id="resetUserState" parameterType="com.huarong.p2p.api.mybatis.model.User" >
+		UPDATE t_user SET loginErrorCount = #{loginerrorcount},isLoginLimit=#{isloginlimit},lastDate=#{lastdate} where id = #{id}
+	</update>
+	
+	<update id="updateUserState"  parameterType="com.huarong.p2p.api.mybatis.model.User" >
+		UPDATE t_user SET loginErrorCount = #{loginerrorcount},lastDate=#{lastdate} where id = #{id}
+	</update>
+	
+</mapper>

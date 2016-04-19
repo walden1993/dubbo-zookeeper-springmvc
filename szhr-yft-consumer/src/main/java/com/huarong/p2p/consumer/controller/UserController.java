@@ -106,8 +106,8 @@ public class UserController {
     @IgnoreSecurity
     @RequestMapping("sendSms")
     public Response sendSms(){
-    	boolean result = smsService.sendSms(null, "template", true);
-    	return new Response().success(result);
+    	//boolean result = smsService.sendSms(null, "template", true);
+    	return new Response().success(true);
     }
     
 }
